@@ -1,4 +1,5 @@
 from flask import Flask, request
+import cgi
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -23,6 +24,6 @@ def index():
 @app.route("/hello", methods=["POST"])
 def hello():
     first_name = request.form['first_name']
-    return "<h1>Hello, " + first_name + "</h1>"
+    return "<h1>Hello, " + cgi.escape(first_name) + "</h1>"
 
 app.run()
