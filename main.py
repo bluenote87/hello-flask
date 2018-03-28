@@ -22,4 +22,16 @@ def hello():
     template = jinja_env.get_template('hello_greeting.html')
     return template.render(name = first_name)
 
+tasks = []
+
+@app.route("/todos", methods = ['POST', 'GET'])
+def todos():
+
+    if request.method == 'POST':
+        task = request.form['task']
+        tasks.append(task)
+
+    template = jinja_env.get_template('todos.html')
+    return template.render(tasks=tasks)
+
 app.run()
