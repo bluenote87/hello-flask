@@ -14,13 +14,18 @@ app.config['DEBUG'] = True
 @app.route("/")
 def index():
     template = jinja_env.get_template('hello_form.html')
-    return template.render()
+    return template.render(title = "Hello.")
+
+@app.route("/search-form")
+def search():
+    template = jinja_env.get_template('forms.html')
+    return template.render(title = "Search query for DuckDuckGo")
 
 @app.route("/hello", methods=["POST"])
 def hello():
     first_name = request.form['first_name']
     template = jinja_env.get_template('hello_greeting.html')
-    return template.render(name = first_name)
+    return template.render(title = "Allow me to welcome you!", name = first_name)
 
 tasks = []
 
@@ -32,6 +37,6 @@ def todos():
         tasks.append(task)
 
     template = jinja_env.get_template('todos.html')
-    return template.render(tasks=tasks)
+    return template.render(title="Your TODOs list",tasks=tasks)
 
 app.run()
